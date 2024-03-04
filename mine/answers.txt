@@ -1,0 +1,11 @@
+3 Recommandation de films
+
+3.1. Popularity
+Voir commentaires dans le fichier popularity.py
+
+
+3.2. KNN : approche memory based K plus proches voisins
+L'approche implémentée dans le fichier knn.py est le user-based collaborative filtering car les calculs de similarités (cosinus) se font entre les users. 
+Voir commentaires dans le fichier knn.py
+
+3.3. SVD : factorisation de matrices par décomposition en valeurs singulières

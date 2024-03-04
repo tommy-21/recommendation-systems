@@ -4,6 +4,7 @@
 ##============================================
 ##============================================
 # Recommande des films en utilisant la stratégie des k plus proches utilisateurs
+# avec l'approche "user-based collaborative filtering"
 # La similarité est claculée selon le critère *cosinus*
 
 # * popularity.recommend(M_train, id_user, new) : recommande un film
@@ -67,9 +68,9 @@ def complete_a_user(M_train, id_user, k):
             if sum(abs(sims)) != 0 : # if there is at least one non-zero value in the similarities computed (k similarities at most) 
                 rates = M_train[inds_known, id_item] # take the ratings of our k nearests neighbours for the movie
 
-                mean_rates = np.nanmean(M_train[inds_known, :], axis=1) # 
+                mean_rates = np.nanmean(M_train[inds_known, :], axis=1) # compute the mean of the ratings of our k nearests neighbours for each of them
 
-                scores[id_item] = np.nanmean(M_train[id_user, :]) + np.sum(sims*(rates-mean_rates))/sum(abs(sims))
+                scores[id_item] = np.nanmean(M_train[id_user, :]) + np.sum(sims*(rates-mean_rates))/sum(abs(sims)) # the estimated rating is the weighted average of the ratings of our k nearests neighbours for the movie but computed so as to account for the differences in rating scales between users
             else : # if all of them are zeros, 
                 scores[id_item] = np.nanmean(M_train[id_user, :]) # the estimated rating is the mean of our user's given ratings
 
@@ -93,7 +94,7 @@ def recommend(M_train, id_user, new=True, k=10):
     '''
     scores = complete_a_user(M_train, id_user, k) # compute estimated ratings of the user each of the movies
   
-    if !new: # if the user is not new, that means he may already have rated some movies. Thus we are going to 
+    if not new: # if the user is not new, that means he may already have rated some movies. Thus we are going to 
         inds_unknown = np.where(np.isnan(M_train[id_user, :]))[0] # first, find indexes of the movies for which there is no rating yet by our user 
         rec_ind_in_unknown = np.argmax(scores[inds_unknown]) # find the index of the movie with the best estimated rating in the list of the non-rated movies id
         return inds_unknown[rec_ind_in_unknown] # return the actual id of that movie
