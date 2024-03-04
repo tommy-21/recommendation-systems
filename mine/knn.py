@@ -94,12 +94,12 @@ def recommend(M_train, id_user, new=True, k=10):
     '''
     scores = complete_a_user(M_train, id_user, k) # compute estimated ratings of the user each of the movies
   
-    if not new: # if the user is not new, that means he may already have rated some movies. Thus we are going to 
+    if new: # if we want to recommend a new item, we
         inds_unknown = np.where(np.isnan(M_train[id_user, :]))[0] # first, find indexes of the movies for which there is no rating yet by our user 
         rec_ind_in_unknown = np.argmax(scores[inds_unknown]) # find the index of the movie with the best estimated rating in the list of the non-rated movies id
         return inds_unknown[rec_ind_in_unknown] # return the actual id of that movie
 
-    else: # Just recommend the movies with the best estimated rating since the user is new and haven't rated any movies before
+    else: # else, we just return the index of the item with the highest estimated rating
         return np.argmax(scores)
 
 
