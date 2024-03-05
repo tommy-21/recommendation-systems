@@ -9,3 +9,11 @@ L'approche implémentée dans le fichier knn.py est le user-based collaborative 
 Voir commentaires dans le fichier knn.py
 
 3.3. SVD : factorisation de matrices par décomposition en valeurs singulières
+
+
+
+
+4 Metriques d'evaluation
+
+    MAE : Il s'agit de la moyenne des écarts absolus entre les valeurs estimées et les vraies valeurs
+    Recall et precision : Les formules et le protocole d'évaluation sont dans le fichier compare.ipynb. L'implémentation se trouve dans le fichier eval.py
